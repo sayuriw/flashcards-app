@@ -3,10 +3,10 @@ import styled from 'styled-components/macro'
 import Card from './Card'
 
 
-export default function HomePage({ cards }) {
+export default function CardsList({ cards, title }) {
   return (
     <HomePageStyle /*className="page"*/>
-      <h1>Homepage</h1>
+      <h1>{title}</h1>
       {cards.map((card, index) => (
         <Card
           key={index}

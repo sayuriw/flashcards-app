@@ -19,7 +19,8 @@ export function deleteCard(id) {
 }
 
 function fetchCards({ id = '', method = 'GET', data } = {}) {
-  return fetch('http://localhost:3333/cards/' + id, {
+  //return fetch('http://localhost:3333/cards/' + id, {
+  return fetch('/cards/' + id, {
     method,
     body: JSON.stringify(data),
     headers: {
