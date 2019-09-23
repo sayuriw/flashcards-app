@@ -2,9 +2,10 @@ import React from 'react'
 import styled from 'styled-components/macro'
 import Card from './Card'
 
+
 export default function HomePage({ cards }) {
   return (
-    <HomePageStyle className="page">
+    <HomePageStyle /*className="page"*/>
       <h1>Homepage</h1>
       {cards.map((card, index) => (
         <Card
@@ -23,4 +24,9 @@ const HomePageStyle = styled.section`
   display: grid;
   align-content: flex-start;
   gap: 20px;
+  text-align: center;
+  h1 {
+    font-size: 2em;
+  }
+  
 `

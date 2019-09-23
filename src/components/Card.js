@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components/macro'
 
 export default function Card({ title, question, answer }) {
+  
   const [isAnswerVisible, setIsAnswerVisible] = useState(false)
 
   function toggleAnswer() {
@@ -31,4 +32,5 @@ const CardStyle = styled.section`
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0 10px 10px #0002;
+  margin: 0 20%;
 `

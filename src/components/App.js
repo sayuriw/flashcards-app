@@ -3,6 +3,7 @@ import Navigation from './Navigation'
 import HomePage from './HomePage'
 import GlobalStyles from './GlobalStyles'
 import styled from 'styled-components/macro'
+import Settings from './Settings'
 
 function App() {
   const [activeIndex, setActiveIndex] = useState(0)
@@ -24,7 +25,7 @@ function App() {
       0: <HomePage cards={cards} />,
       1: <section>Practice</section>,
       2: <section>Bookmarks</section>,
-      3: <section>Settings</section>,
+      3: <Settings cards={cards, setCards}/>
     }
 
     return pages[activeIndex] || <section>404</section>
@@ -45,9 +46,11 @@ function App() {
 }
    const AppStyle = styled.div`
     display: grid;
+    grid-template-columns: auto;
     grid-template-rows: auto 48px;
     height: 100vh;
     font-family: sans-serif;
+    
     `
   
 

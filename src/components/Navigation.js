@@ -1,13 +1,14 @@
 import React from 'react'
 import styled from 'styled-components/macro'
+import Button from './Button'
 
 export default function Navigation({ buttonTexts, onClick }) {
   return (
     <NavigationStyle className="Navigation">
       {buttonTexts.map((text, index) => (
-        <button onClick={() => onClick(index)} key={index}>
+        <Button onClick={() => onClick(index)} key={index}>
           {text}
-        </button>
+        </Button>
       ))}
     </NavigationStyle>
   )
@@ -15,9 +16,6 @@ export default function Navigation({ buttonTexts, onClick }) {
 
 const NavigationStyle = styled.nav`
     display: flex;
-    button {
-      font-size: 2em;
-      flex-grow: 1;
-      background-color: rgb(172, 111, 120)
-    }
+    
+    
 `
