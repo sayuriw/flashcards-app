@@ -20,6 +20,7 @@ function App() {
     },
   ])
   function createCard(cardData) {
+    setCards([...cards, cardData])
       
     
 
