@@ -66,25 +66,7 @@ export default function SettingsPage({ onSubmit }) {
       </SettingsStyle>
    </>
   )
-  // function handleSubmit(event) {
-  //   event.preventDefault()
-  //   setCards([
-  //     ...cards,
-  //     { title: inputTitle, question: inputQuestion, answer: inputAnswer }
-  //   ])
-  // }
-
-  // }
-  // export default function Settings() {
-  //   return (
-  //   <>
-  //     <SettingsStyle>
-  //       <Button>Clear practice</Button>
-  //       <Button>Clear bookmarks</Button>
-  //       <Form />
-  //     </SettingsStyle>
-  //   </>
-  //   )
+  
 }
 const SettingsStyle = styled.section`
   padding: 20px;
