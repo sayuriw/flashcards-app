@@ -19,7 +19,7 @@ export default function HomePage({ cards }) {
   )
 }
 
-const HomePageStyle = styled.section`
+const HomePageStyle = styled.main`
   padding: 20px;
   display: grid;
   align-content: flex-start;

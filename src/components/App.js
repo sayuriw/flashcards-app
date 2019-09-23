@@ -3,7 +3,7 @@ import Navigation from './Navigation'
 import HomePage from './HomePage'
 import GlobalStyles from './GlobalStyles'
 import styled from 'styled-components/macro'
-import Settings from './Settings'
+import SettingsPage from './SettingsPage'
 
 function App() {
   const [activeIndex, setActiveIndex] = useState(0)
@@ -19,13 +19,18 @@ function App() {
       answer: 'That!',
     },
   ])
+  function createCard(cardData) {
+      
+    
+
+  }
 
   function renderPage() {
     const pages = {
       0: <HomePage cards={cards} />,
       1: <section>Practice</section>,
       2: <section>Bookmarks</section>,
-      3: <Settings cards={cards, setCards}/>
+      3: <SettingsPage onSubmit={createCard} />
     }
 
     return pages[activeIndex] || <section>404</section>
