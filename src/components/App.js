@@ -4,7 +4,7 @@ import CardList from './CardList'
 import GlobalStyles from './GlobalStyles'
 import styled from 'styled-components/macro'
 import SettingsPage from './SettingsPage'
-import { getAllCards, postCard } from '../services';
+import { getAllCards, postCard, patchCard } from '../services';
 
 function App() {
   useEffect(() => {
@@ -12,27 +12,36 @@ function App() {
   }, [])
   
   
-  const [activeIndex, setActiveIndex] = useState(0)
+  const [activePageIndex, setActivePageIndex] = useState(0)
   const [cards, setCards] = useState([])
   
   
   function createCard(cardData) {
      postCard(cardData).then(card => setCards([...cards, card]))
     // setCards([...cards, cardData])
-      
-    
+  }
 
+  function handleBookmarkClick(card) {
+    patchCard(card._id, {isBookmarked: !card.isBookmarked}).then(changedCard => {
+      const index = cards.findIndex(card => card._id === changedCard._id)
+      setCards([
+        ...cards.slice(0, index), 
+        {...card, isBookmarked: changedCard.isBookmarked },
+        ...cards.slice(index + 1)
+
+      ])
+    }) 
   }
 
   function renderPage() {
     const pages = {
-      0: <CardList title="Home"cards={cards} />,
-      1: <CardList title="Practice"cards={cards.filter(card => card.doPractice)} />,
-      2: <CardList title="bookmarks"cards={cards.filter(card => card.isBookmarked)} />,
+      0: <CardList onBookmarkClick={handleBookmarkClick} title="Home"cards={cards} />,
+      1: <CardList onBookmarkClick={handleBookmarkClick} title="Practice"cards={cards.filter(card => card.doPractice)} />,
+      2: <CardList onBookmarkClick={handleBookmarkClick} title="bookmarks"cards={cards.filter(card => card.isBookmarked)} />,
       3: <SettingsPage onSubmit={createCard} />
     }
 
-    return pages[activeIndex] || <section>404</section>
+    return pages[activePageIndex] || <section>404</section>
   }
 
   return (
@@ -42,7 +51,7 @@ function App() {
       {renderPage()}
       <Navigation
         buttonTexts={['Home', 'Practice', 'Bookmarks', 'Settings']}
-        onClick={setActiveIndex}
+        onClick={setActivePageIndex}
       />
     </AppStyle>
     </>

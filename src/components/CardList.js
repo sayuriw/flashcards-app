@@ -3,16 +3,18 @@ import styled from 'styled-components/macro'
 import Card from './Card'
 
 
-export default function CardsList({ cards, title }) {
+export default function CardsList({ cards, title, onBookmarkClick}) {
   return (
     <HomePageStyle /*className="page"*/>
       <h1>{title}</h1>
-      {cards.map((card, index) => (
+      {cards.map((card) => (
         <Card
-          key={index}
+          key={card._id}
           title={card.title}
           question={card.question}
           answer={card.answer}
+          isBookmarked={card.isBookmarked}
+          onBookmarkClick={() => onBookmarkClick(card)}
         />
       ))}
     </HomePageStyle>

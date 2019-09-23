@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import styled from 'styled-components/macro'
+import Bookmark from './Bookmark'
 
-export default function Card({ title, question, answer }) {
+export default function Card({ title, question, answer, isBookmarked, onBookmarkClick }) {
   
   const [isAnswerVisible, setIsAnswerVisible] = useState(false)
+  
 
   function toggleAnswer() {
     setIsAnswerVisible(!isAnswerVisible)
@@ -11,6 +13,10 @@ export default function Card({ title, question, answer }) {
 
   return (
     <CardStyle onClick={toggleAnswer} className="Card">
+      <Bookmark 
+      onClick={onBookmarkClick}
+      active={isBookmarked}
+      ></Bookmark>
       <h2>{title}</h2>
       <p>{question}</p>
       {isAnswerVisible && <Answer text={answer} />}
@@ -28,6 +34,7 @@ export default function Card({ title, question, answer }) {
 }
 
 const CardStyle = styled.section`
+  position: relative;
   background: lightpink;
   padding: 20px;
   border-radius: 5px;
