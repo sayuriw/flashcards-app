@@ -6,7 +6,7 @@ const Bookmark = styled.div`
   top: -10px;
   width: 30px;
   height: 20px;
-  background: black;
+  background: ${({ active }) => (active ? 'hotpink' : 'black')};
     &:after {
     position: absolute;
     content: '';
@@ -15,6 +15,7 @@ const Bookmark = styled.div`
     left:0;
     right:0;
     border-bottom-color: transparent;
+    
   }
   
     

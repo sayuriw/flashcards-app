@@ -10,11 +10,15 @@ export default function Card({ title, question, answer, isBookmarked, onBookmark
   function toggleAnswer() {
     setIsAnswerVisible(!isAnswerVisible)
   }
+  function handleBookmarkClick(event) {
+    event.stopPropagation()
+    onBookmarkClick()
+  }
 
   return (
     <CardStyle onClick={toggleAnswer} className="Card">
       <Bookmark 
-      onClick={onBookmarkClick}
+      onClick={handleBookmarkClick}
       active={isBookmarked}
       ></Bookmark>
       <h2>{title}</h2>
