@@ -5,6 +5,7 @@ import GlobalStyles from './GlobalStyles'
 import styled from 'styled-components/macro'
 import SettingsPage from './SettingsPage'
 import { getAllCards, postCard, patchCard } from '../services';
+import {BrowserRouter as Router, Route} from 'react-router-dom'
 
 function App() {
   useEffect(() => {
@@ -33,27 +34,49 @@ function App() {
     }) 
   }
 
-  function renderPage() {
+  function renderPage(index) {
     const pages = {
-      0: <CardList onBookmarkClick={handleBookmarkClick} title="Home"cards={cards} />,
-      1: <CardList onBookmarkClick={handleBookmarkClick} title="Practice"cards={cards.filter(card => card.doPractice)} />,
-      2: <CardList onBookmarkClick={handleBookmarkClick} title="bookmarks"cards={cards.filter(card => card.isBookmarked)} />,
+      0: (
+        <CardList
+          onBookmarkClick={handleBookmarkClick}
+          title="Home"
+          cards={cards}
+        />
+      ),
+      1: (
+        <CardList
+          onBookmarkClick={handleBookmarkClick}
+          title="Practice"
+          cards={cards.filter(card => card.doPractice)}
+        />
+      ),
+      2: (
+        <CardList
+          onBookmarkClick={handleBookmarkClick}
+          title="Bookmarks"
+          cards={cards.filter(card => card.isBookmarked)}
+        />
+      ),
       3: <SettingsPage onSubmit={createCard} />
     }
-
-    return pages[activePageIndex] || <section>404</section>
+    return pages[index] || <section>404</section>
   }
+
 
   return (
     <>
-    <GlobalStyles />
-    <AppStyle className="App">
-      {renderPage()}
-      <Navigation
-        buttonTexts={['Home', 'Practice', 'Bookmarks', 'Settings']}
-        onClick={setActivePageIndex}
-      />
-    </AppStyle>
+    <Router>
+      <GlobalStyles />
+      <AppStyle className="App">
+        <Route exact path="/" render={() => renderPage(0)} />
+        <Route path="/practice" render={() => renderPage(1)} />
+        <Route path="/bookmark" render={() => renderPage(2)} />
+        <Route path="/settings" render={() => renderPage(3)} />
+        {/* <Route exact path="/" render={() => <CardList cards={cards} onBookmarkClick={handleBookmarkClick} />} />
+        <Route path="/settings" render={() => <SettingsPage onSubmit={createCard} />} /> */}
+        <Navigation />
+      </AppStyle>
+    </Router>
     </>
   )
 }
