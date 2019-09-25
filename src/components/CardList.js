@@ -3,7 +3,7 @@ import styled from 'styled-components/macro'
 import Card from './Card'
 
 
-export default function CardsList({ cards, title, onBookmarkClick}) {
+export default function CardsList({ cards, title, onBookmarkClick, onPracticeClick, onDeleteClick }) {
   return (
     <HomePageStyle /*className="page"*/>
       <h1>{title}</h1>
@@ -15,6 +15,11 @@ export default function CardsList({ cards, title, onBookmarkClick}) {
           answer={card.answer}
           isBookmarked={card.isBookmarked}
           onBookmarkClick={() => onBookmarkClick(card)}
+          doPractice={card.doPractice}
+          onPracticeClick={() => onPracticeClick(card)}
+          onDeleteClick={() => onDeleteClick(card)}
+          
+
         />
       ))}
     </HomePageStyle>

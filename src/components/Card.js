@@ -1,8 +1,24 @@
 import React, { useState } from 'react'
 import styled from 'styled-components/macro'
 import Bookmark from './Bookmark'
+import PropTypes from 'prop-types'
 
-export default function Card({ title, question, answer, isBookmarked, onBookmarkClick }) {
+Card.propTypes = {
+  title: PropTypes.string.isRequired,
+  question: PropTypes.string.isRequired,
+  answer: PropTypes.string.isRequired,
+  isBookmarked: PropTypes.bool,
+  onBookmarkClick: PropTypes.func.isRequired,
+  doPractice: PropTypes.bool,
+  onPracticeClick: PropTypes.func.isRequired,
+  onDeleteClick: PropTypes.func.isRequired
+}
+
+Card.defaultProps = {
+  isBookmarked: false
+}
+
+export default function Card({ title, question, answer, isBookmarked, onBookmarkClick, onPracticeClick, doPractice, onDeleteClick }) {
   
   const [isAnswerVisible, setIsAnswerVisible] = useState(false)
   
@@ -14,6 +30,14 @@ export default function Card({ title, question, answer, isBookmarked, onBookmark
     event.stopPropagation()
     onBookmarkClick()
   }
+  function handlePracticeClick(event) {
+    event.stopPropagation()
+    onPracticeClick()
+  }
+  function handleDeleteClick(event) {
+    event.stopPropagation()
+    onDeleteClick()
+  }
 
   return (
     <CardStyle onClick={toggleAnswer} className="Card">
@@ -24,6 +48,11 @@ export default function Card({ title, question, answer, isBookmarked, onBookmark
       <h2>{title}</h2>
       <p>{question}</p>
       {isAnswerVisible && <Answer text={answer} />}
+      <ButtonStyled
+      onClick={handlePracticeClick}
+      active={doPractice}
+      >Practice</ButtonStyled>
+      <ButtonStyled onClick={handleDeleteClick}>Delete</ButtonStyled>
     </CardStyle>
   )
 
@@ -44,4 +73,9 @@ const CardStyle = styled.section`
   border-radius: 5px;
   box-shadow: 0 10px 10px #0002;
   margin: 0 20%;
+`
+const ButtonStyled = styled.button`
+  font-size: 1em;
+  background-color: rgb(172, 111, 120);
+
 `

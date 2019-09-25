@@ -4,7 +4,7 @@ import Button from './Button'
 
 //rfc is a shortcut
 
-export default function SettingsPage({ onSubmit }) {
+export default function SettingsPage({ onSubmit, onClearPracticeClick }) {
     
   const [formData, setFormData] = useState({title:'', question: '', answer:''})
   
@@ -19,15 +19,17 @@ export default function SettingsPage({ onSubmit }) {
           [event.target.name]: event.target.value
       })
     }
+    function handleClearPractice(event) {
+      onClearPracticeClick()
+    }
   
   
 
 
   return (
     <>
-      <SettingsStyle onSubmit={handleSubmit}>
-        <Button>Clear practice</Button>
-        <Button>Clear bookmarks</Button>
+      <SettingsStyle /*onSubmit={handleSubmit}*/>
+        <Button onClick={handleClearPractice}>Clear practice</Button>
         <h2>Create new card</h2>
         <form onSubmit={handleSubmit}>
           <label>

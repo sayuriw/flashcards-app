@@ -4,7 +4,7 @@ import CardList from './CardList'
 import GlobalStyles from './GlobalStyles'
 import styled from 'styled-components/macro'
 import SettingsPage from './SettingsPage'
-import { getAllCards, postCard, patchCard } from '../services';
+import { getAllCards, postCard, patchCard, deleteCard } from '../services';
 import {BrowserRouter as Router, Route} from 'react-router-dom'
 
 function App() {
@@ -13,18 +13,47 @@ function App() {
   }, [])
   
   
-  const [activePageIndex, setActivePageIndex] = useState(0)
+  
   const [cards, setCards] = useState([])
   
   
   function createCard(cardData) {
      postCard(cardData).then(card => setCards([...cards, card]))
-    // setCards([...cards, cardData])
+  
+  }
+  function removePractice() {
+    getAllCards().then(
+      setCards( 
+        cards.map(card =>  ({...card, doPractice: false})) 
+      )
+    )
+  }
+
+  function handlePracticeClick(card) {
+    patchCard(card._id, {doPractice: !card.doPractice}).then(changedCard => {
+      const index = cards.findIndex(card => card._id === changedCard._id)
+      setCards([
+        ...cards.slice(0, index),
+        {...card, doPractice: changedCard.doPractice },
+        ...cards.slice(index + 1)
+      ])
+    })
+    
+  }
+  function handleDeleteClick(card) {
+    console.log(card._id)
+    deleteCard(card._id).then(() => {
+      const index = cards.findIndex(card => card._id)
+      setCards([
+        ...cards.slice(0, index),
+        ...cards.slice(index + 1)
+      ])
+    })
   }
 
   function handleBookmarkClick(card) {
     patchCard(card._id, {isBookmarked: !card.isBookmarked}).then(changedCard => {
-      const index = cards.findIndex(card => card._id === changedCard._id)
+      const index = cards.findIndex(card => card._id)
       setCards([
         ...cards.slice(0, index), 
         {...card, isBookmarked: changedCard.isBookmarked },
@@ -38,26 +67,32 @@ function App() {
     const pages = {
       0: (
         <CardList
+          onPracticeClick={handlePracticeClick}
           onBookmarkClick={handleBookmarkClick}
+          onDeleteClick={handleDeleteClick}
           title="Home"
           cards={cards}
         />
       ),
       1: (
         <CardList
+          onPracticeClick={handlePracticeClick}
           onBookmarkClick={handleBookmarkClick}
+          onDeleteClick={handleDeleteClick}
           title="Practice"
           cards={cards.filter(card => card.doPractice)}
         />
       ),
       2: (
         <CardList
+          onPracticeClick={handlePracticeClick}
           onBookmarkClick={handleBookmarkClick}
+          onDeleteClick={handleDeleteClick}
           title="Bookmarks"
           cards={cards.filter(card => card.isBookmarked)}
         />
       ),
-      3: <SettingsPage onSubmit={createCard} />
+      3: <SettingsPage onSubmit={createCard} onClearPracticeClick={removePractice}/>
     }
     return pages[index] || <section>404</section>
   }

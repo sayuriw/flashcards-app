@@ -5,7 +5,7 @@ const Card = mongoose.model('Card', {
   title: String,
   question: String,
   answer: String,
-  toPractice: Boolean,
+  doPractice: Boolean,
   isBookmarked: Boolean
  })
 
