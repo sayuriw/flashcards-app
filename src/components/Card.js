@@ -48,10 +48,10 @@ export default function Card({ title, question, answer, isBookmarked, onBookmark
       <h2>{title}</h2>
       <p>{question}</p>
       {isAnswerVisible && <Answer text={answer} />}
-      <ButtonStyled
+      {doPractice || <ButtonStyled
       onClick={handlePracticeClick}
-      active={doPractice}
-      >Practice</ButtonStyled>
+      >Practice</ButtonStyled>}
+
       <ButtonStyled onClick={handleDeleteClick}>Delete</ButtonStyled>
     </CardStyle>
   )

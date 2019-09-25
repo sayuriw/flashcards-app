@@ -28,7 +28,7 @@ router.patch('/:id', (req, res) => {
 })
 
 router.delete('/:id', (req, res) => {
-  Card.findByIdAndDelete({id: req.params.id})
+  Card.findByIdAndDelete(req.params.id)
   .then(card => res.json(card))
   .catch(err => res.json(err))
 })
