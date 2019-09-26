@@ -43,7 +43,8 @@ function App() {
   function handleDeleteClick(card) {
     console.log(card._id)
     deleteCard(card._id).then(() => {
-      const index = cards.findIndex(card => card._id)
+      const index = cards.indexOf(card)
+      console.log(card)
       setCards([
         ...cards.slice(0, index),
         ...cards.slice(index + 1)
@@ -53,7 +54,7 @@ function App() {
 
   function handleBookmarkClick(card) {
     patchCard(card._id, {isBookmarked: !card.isBookmarked}).then(changedCard => {
-      const index = cards.findIndex(card => card._id)
+      const index = cards.findIndex(card => card._id === changedCard._id)
       setCards([
         ...cards.slice(0, index), 
         {...card, isBookmarked: changedCard.isBookmarked },
