@@ -3,11 +3,12 @@ import React from 'react'
 import { action } from '@storybook/addon-actions'
 import { withKnobs, boolean } from '@storybook/addon-knobs'
 import Card from './Card'
+import { withInfo } from '@storybook/addon-info'
 
 
 export default {
   title: 'Card',
-  decorators: [withKnobs]
+  decorators: [withKnobs, withInfo]
 };
 
  export const Bookmarked = () =>  
